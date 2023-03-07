@@ -1,0 +1,14 @@
+.login-popup {
+	font-size: 12px;
+}
+.login-popup>.header {
+	width: 100%;
+	border-bottom: 1px solid gray;
+	font-size: 18px;
+	text-align: center;
+	padding: 5px;
+}
+.login-popup>.content {
+	width: 100%;
+	padding: 10px 5px;
+}
