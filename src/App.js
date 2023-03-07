@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <PageHeader/>
-        <LoginControl/>
+        <LoginControl token_callback={console.log} />
       </header>
     </div>
   );
