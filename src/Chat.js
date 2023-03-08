@@ -11,9 +11,8 @@ export class Chat extends React.Component {
     // })
     render() {
         const messages = this.props.data;
-        console.log(Array.isArray(messages))
         return (
-            <Container maxWidth="sm">
+            <Container fixed>
                 <Stack spacing={2}>
                     {Array.isArray(messages) &&
                         messages.map(function(message, index) {

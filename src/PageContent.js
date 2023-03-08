@@ -26,7 +26,7 @@ export class PageContent extends React.Component {
         content: 'Q1',
       },
       {
-        role: 'assistent',
+        role: 'assistant',
         content: 'A1',
       },
       {
@@ -34,7 +34,7 @@ export class PageContent extends React.Component {
         content: 'Q2'
       },
       {
-        role: 'assistent',
+        role: 'assistant',
         content: 'A2'
       }
     ]
