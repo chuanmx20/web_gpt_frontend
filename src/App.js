@@ -1,25 +1,19 @@
 import './App.css';
-import { LoginControl } from './login'
+import { PageContent } from './PageContent';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <PageHeader/>
-        <LoginControl token_callback={console.log} />
+        <PageContent/>
       </header>
     </div>
   );
 }
-var state = {
-  phase : 0,
-  loading : 'idle',
-}
 function PageHeader() {
   return (<div className="Page-header">
-    <p>
-      Hello World
-    </p>
+    <p>{process.env.REACT_APP_TITLE}</p>
   </div>)
 }
 

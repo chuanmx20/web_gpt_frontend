@@ -1,0 +1,44 @@
+:root {
+    --input-width: 90%;
+}
+
+.search {
+    width: 80%;
+    max-width: 800px;
+    min-height: 20px;
+    padding: 0px;
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    align-content: bottom-left;
+    display: flex;
+    justify-content: space-between;
+    align-content: horizontal;
+}
+
+.search > .input {
+    width: var(--input-width);
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    border: none;
+    font-size: 16px;
+}
+.search button {
+    background-image: url("./imgs/send.png");
+    background-size: contain;
+    background-color: #f2f2f200;
+    border: none;
+    cursor: pointer;
+    width: 80% !important;
+    margin: auto;
+    aspect-ratio: 1/1;
+    bottom: 0;
+    position: relative;
+}
+.search > .button-container {
+    aspect-ratio: 1/1;
+    width: calc(100% - var(--input-width)) !important;
+    justify-content: center;
+    vertical-align: center;
+}
