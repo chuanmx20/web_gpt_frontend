@@ -7,6 +7,13 @@ export class Search extends React.Component {
     constructor(props) {
         super(props)
     }
+
+    send = () => {
+        const input = document.getElementById("input");
+        const message = input.value;
+        input.value = "";
+        this.props.send(message);
+    }
     render() {
         return (
             <div className="search">
@@ -15,9 +22,10 @@ export class Search extends React.Component {
                     maxRows={5} 
                     className="input"
                     placeholder="Say something!"
+                    id="input"
                 />
                 <div className="button-container">
-                    <button />
+                    <button onClick={this.send} />
                 </div>
             </div>
             

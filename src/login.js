@@ -8,29 +8,23 @@ const client_id = process.env.REACT_APP_CLIENT_ID;
 export class LoginControl extends React.Component {
   constructor(props) {
     super(props);
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code')
-    
     this.state = {
           isLoggedIn: false,
           code: undefined
     };
-
+  }
+  componentDidMount() {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code')
     /// recall of oauth!
     if (code != undefined) {
-      this.oauth_login(this.props.token_callback).then(() => {
-        this.remove_url_params();
-        this.setState({
-          isLoggedIn: true,
-          code: code,
-        })
-      })
+      this.oauth_login(this.props.token_callback);
     }
   }
   click_login() {
     window.location.href = `${authorize_uri}?client_id=${client_id}`;
   }
-  async oauth_login(set_token) {
+  oauth_login = (set_token) => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const body = new URLSearchParams();
@@ -48,7 +42,11 @@ export class LoginControl extends React.Component {
         set_token(json.token)
         alert('Successfully logged in!');
       });
-
+    this.remove_url_params();
+    this.setState({
+      isLoggedIn: true,
+      code: code,
+    })
   }
   remove_url_params() {
     var newURL = location.href.split("?")[0];
