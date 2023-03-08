@@ -11,6 +11,10 @@ export class Search extends React.Component {
     send = () => {
         const input = document.getElementById("input");
         const message = input.value;
+        if (message.trim() == "") {
+            alert("Invalid input!");
+            return;
+        }
         input.value = "";
         this.props.send(message);
     }

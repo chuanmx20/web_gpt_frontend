@@ -10,12 +10,10 @@ export class Chat extends React.Component {
     //     return <Message message={message}/>
     // })
     render() {
-        const messages = this.props.data;
         return (
             <Container fixed>
-                <Stack spacing={2}>
-                    {Array.isArray(messages) &&
-                        messages.map(function(message, index) {
+                <Stack spacing={4 }>
+                    {this.props.data.map(function(message, index) {
                             return <Message key={index} message={message} />
                         })
                     }

@@ -51,6 +51,9 @@ export class PageContent extends React.Component {
   send_message = (message)=>{
     console.log(message);
     this.state.data.push({ role: 'user', content: message });
+    this.setState({
+      data: this.state.data,
+    })
   }
   render() {
     return (
