@@ -6,26 +6,39 @@
     --button-color-active: #7272723f;
     --shadow-width-idle: 5px;
     --shadow-width-active: 1px;
+    --search-background-color: #5b6477ca;
+}
+
+.search-container {
+    width: 100%;
+    height:auto;
+    padding-top: 30px;
+    position: fixed;
+    bottom: 0;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+
+    background-color: var(--search-background-color);
 }
 
 .search {
     width: 80%;
     max-width: 800px;
     min-height: 20px;
-    padding: 0px;
-    position: fixed;
-    bottom: 40px;
+    /* position: fixed; */
+    margin-bottom: 40px;
     left: 50%;
-    transform: translateX(-50%);
+    /* transform: translateX(-50%); */
     align-content: bottom-left;
     display: flex;
     justify-content: space-between;
-    align-content: horizontal;
+    /* align-content: horizontal; */
 }
 
 .search > .input {
     width: var(--input-width);
-    height: 100%;
+    height: auto;
     margin-left: auto;
     margin-top: auto;
     border-radius: 5px;
@@ -37,14 +50,13 @@
     background-image: url("./imgs/send.png");
     background-size: contain;
     background-color: var(--button-color-idle);
-    border-radius: 5px;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
     width: 60% !important;
+    margin-bottom: 5px;
 
     aspect-ratio: 1/1;
-    position: absolute;
-    bottom: 8px;
     box-shadow: 1px var(--shadow-width-idle) var(--shadow-color);
 }
 .search button:hover {
@@ -57,9 +69,12 @@
 .search > .button-container {
     aspect-ratio: 1/1;
     width: calc(100% - var(--input-width)) !important;
-    max-width: 80px;
-    vertical-align: bottom;
-    display: flex;
-    position: relative;
+    max-width: 80px !important;
+    height: 100%;
+    justify-content: flex-end;
+    flex-direction: column;
+
+    aspect-ratio: 1/1;
     margin-left: 10px;
+    display: flex;
 }

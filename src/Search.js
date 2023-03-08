@@ -20,6 +20,7 @@ export class Search extends React.Component {
     }
     render() {
         return (
+            <div className="search-container">
             <div className="search">
                 <TextField
                     multiline
@@ -37,6 +38,7 @@ export class Search extends React.Component {
                 <div className="button-container">
                     <button onClick={this.send} />
                 </div>
+            </div>
             </div>
             
         )

@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Stack, Item } from "@mui/system";
 import { Message } from "./Message"
+import "./Chat.css"
 
 export class Chat extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ export class Chat extends React.Component {
     render() {
         return (
             <Container fixed>
-                <Stack spacing={4 }>
+                <Stack spacing={4}>
                     {this.props.data.map(function(message, index) {
                             return <Message key={index} message={message} />
                         })

@@ -3,6 +3,7 @@ import { LoginControl } from './login'
 import { Search } from "./Search";
 // import { get_json } from "./utils/functions";
 import { Chat } from "./Chat"
+import "./PageContent.css"
 
 export class PageContent extends React.Component {
   constructor(props) {
@@ -70,14 +71,14 @@ export class PageContent extends React.Component {
           />
         )}
         {this.state.verified_token && (
-          <>
+          <div className="page-content">
             <Chat
               data={this.state.data}
             />
             <Search
               send={this.send_message}
             />
-          </>
+          </div>
         )}
       </>
     )
