@@ -1,14 +1,52 @@
-.login-popup {
+.modal {
 	font-size: 12px;
+	background-color: rgb(56, 102, 102);
+	/* padding-right: 5px; */
+	/* height: 160px; */
 }
-.login-popup>.header {
-	width: 100%;
+
+.modal>.header {
+	width: 100%-5px;
 	border-bottom: 1px solid gray;
 	font-size: 18px;
 	text-align: center;
 	padding: 5px;
 }
-.login-popup>.content {
+
+.modal>.content {
 	width: 100%;
 	padding: 10px 5px;
+}
+
+.modal>.actions {
+	width: 100%;
+	padding: 10px 5px;
+	margin: auto;
+	text-align: center;
+}
+
+.modal>.close {
+	cursor: pointer;
+	position: absolute;
+	display: block;
+	padding: 2px 5px;
+	line-height: 20px;
+	right: -10px;
+	top: -10px;
+	font-size: 24px;
+	background: #ffffff;
+	border-radius: 18px;
+	border: 1px solid #cfcece;
+}
+.github-icon {
+	height: 15px;
+}
+.github-button {
+	align-content: center;
+	vertical-align: center;
+}
+
+.github-button-text {
+	padding-left: 10px;
+	padding-right: 5px;
 }

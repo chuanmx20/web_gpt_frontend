@@ -1,6 +1,7 @@
 import React from "react";
 import Popup from 'reactjs-popup';
-import ReactDOM from 'react-dom';
+import './login.css'
+import './github-mark.png'
 
 const authorize_uri = 'https://github.com/login/oauth/authorize';
 const client_id = '325f0a66ca7279f6f2d1'
@@ -46,20 +47,30 @@ export class LoginControl extends React.Component {
           <Popup Popup
             trigger={
               <button>
-                Trigger
+                Login
               </button>
             }
-            position="right center" >
-            <div className="login-popup">
-              <div className='header'>
-                Please Login
-              </div>
-              <div className="content">
-                <button onClick={this.click_login.bind(this)}>
-                  GitHub OAuth Login
+            modal
+            nested
+          >
+            {close => (
+              <div className="modal">
+                <button className="close" onClick={close}>
+                  &times;
                 </button>
+                <div className='header'>
+                  Please Login
+                </div>
+                <div className="content">
+                  <button onClick={this.click_login.bind(this)} className='github-button'>
+                    <img className='github-icon' src={require("./github-mark.png")} /> 
+                    <span className='github-button-text'>
+                      GitHub OAuth Login
+                    </span>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </Popup >
         )}
         {this.state.isLoggedIn && (
