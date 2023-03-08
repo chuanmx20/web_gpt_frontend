@@ -40,6 +40,8 @@
     display: inline-block;
 
     color: black;
+    word-break: break-word;
+    /* white-space: pre-wrap; */
 }
 
 .bubble .content:before {

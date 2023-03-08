@@ -22,7 +22,7 @@
   width: 100%;
   height: 100px;
   background-color: rgb(25, 126, 116);
-  position: absolute;
+  position: fixed;
   top: 0;
   z-index: 999;
   font-weight: 800;

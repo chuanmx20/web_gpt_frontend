@@ -11,12 +11,12 @@ export class Search extends React.Component {
     send = () => {
         const input = document.getElementById("input");
         const message = input.value;
-        if (message.trim() == "") {
+        input.value = "";
+        if (message.trim('\s') == "") {
             alert("Invalid input!");
             return;
         }
-        input.value = "";
-        this.props.send(message);
+        this.props.send(message.replace('\n', '\n\n'));
     }
     render() {
         return (
@@ -27,6 +27,12 @@ export class Search extends React.Component {
                     className="input"
                     placeholder="Say something!"
                     id="input"
+                    onKeyDown={(event) => {
+                        if (event.key == "Enter" && !event.shiftKey) {
+                            this.send();
+                            event.preventDefault();
+                        }
+                    }}
                 />
                 <div className="button-container">
                     <button onClick={this.send} />
