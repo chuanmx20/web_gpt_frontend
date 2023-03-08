@@ -11,11 +11,17 @@ export class Chat extends React.Component {
     // messages = this.props.data.map((message, id) => {
     //     return <Message message={message}/>
     // })
+    componentDidUpdate() {
+        const box = document.getElementById('box');
+        if (box != undefined)
+            box.scrollTo(0, box.scrollHeight)
+    }
     render() {
         return (
-            <Box className="container">
+            <Box className="container" id="box">
                 <Stack spacing={4} className="stack">
-                    {this.props.data.map(function(message, index) {
+                    {
+                        this.props.data.map(function (message, index) {
                             return <Message key={index} message={message} />
                         })
                     }
