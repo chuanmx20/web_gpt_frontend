@@ -1,6 +1,7 @@
 import React from "react";
-import { Container, Stack, Item } from "@mui/system";
-import { Message } from "./Message"
+import { Box, Stack } from "@mui/system";
+import { Paper } from "@mui/material";
+import {  Message } from "./Message"
 import "./Chat.css"
 
 export class Chat extends React.Component {
@@ -12,14 +13,14 @@ export class Chat extends React.Component {
     // })
     render() {
         return (
-            <Container fixed>
-                <Stack spacing={4}>
+            <Box className="container">
+                <Stack spacing={4} className="stack">
                     {this.props.data.map(function(message, index) {
                             return <Message key={index} message={message} />
                         })
                     }
                 </Stack>
-            </Container>
+            </Box>
         )
     }
 }

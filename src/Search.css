@@ -11,12 +11,12 @@
 
 .search-container {
     width: 100%;
-    height:auto;
+    height:160px;
     padding-top: 30px;
     position: fixed;
     bottom: 0;
     align-content: center;
-    display: flex;
+    display: flex-end;
     justify-content: center;
 
     background-color: var(--search-background-color);
@@ -28,6 +28,7 @@
     min-height: 20px;
     /* position: fixed; */
     margin-bottom: 40px;
+    margin: auto;
     left: 50%;
     /* transform: translateX(-50%); */
     align-content: bottom-left;
@@ -45,6 +46,9 @@
     background-color: #f1f1f1;
     border: none;
     font-size: 16px;
+
+    overflow: scroll;
+    display: flex-end;
 }
 .search button {
     background-image: url("./imgs/send.png");
