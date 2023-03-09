@@ -22,7 +22,7 @@ export class PageContent extends React.Component {
 
   update_list() {
       request('GET', process.env.REACT_APP_API_ROOT + "/user/fetch_data").then((json) => {
-      if (json.code != 200) {
+      if (json.status_code != 200) {
         return;
       } else {
         this.setState({
@@ -46,7 +46,7 @@ export class PageContent extends React.Component {
   verify_token = () => {
     request('POST', process.env.REACT_APP_API_ROOT + "/user/verify_token")
       .then((json) => {
-      if (json.code != 200) {
+      if (json.status_code != 200) {
         alert('Invalid TOKEN, please login!');
         localStorage.removeItem('TOKEN');
         return;
@@ -54,7 +54,6 @@ export class PageContent extends React.Component {
       this.setState({
         verified_token: true,
       });
-      document.cookie = "TOKEN=" + this.state.token;
       this.update_list();
     });
   }

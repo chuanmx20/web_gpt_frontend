@@ -28,7 +28,7 @@ export class LoginControl extends React.Component {
     const code = params.get('code');
     request("POST", process.env.REACT_APP_API_ROOT + '/user/login', { 'code': code }).then((json) => {
       console.log(json)
-      if (json.code != 200) {
+      if (json.status_code != 200) {
         throw new Error(JSON.stringify(json));
       }
       this.remove_url_params();

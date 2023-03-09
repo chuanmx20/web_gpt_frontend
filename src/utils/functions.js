@@ -16,7 +16,7 @@ export function get_json(res) {
     );
 }
 
-export function request(method, url, body) {
+export async function request(method, url, body) {
     method = method.toUpperCase();
 
     if (method === 'GET') {
@@ -25,7 +25,7 @@ export function request(method, url, body) {
         body = body && JSON.stringify(body);
         
     }
-    return fetch(url, {
+    const res = await fetch(url, {
         method,
         headers: {
             'Content-Type': 'application/json',
@@ -33,12 +33,12 @@ export function request(method, url, body) {
             'Authorization': ('Bearer' + localStorage.getItem('TOKEN')),
         },
         body: body
-    }).then(get_json).then((json) => {
-        if (json.code === 500) {
+    });
+    const json = await get_json(res);
+    if (json.status_code === 403 || json.status_code == 401) {
 
-            localStorage.removeItem("TOKEN");
-            return Promise.reject('Unauthorized');
-        }
-        return json;
-    })
+        localStorage.removeItem("TOKEN");
+        return Promise.reject('Unauthorized');
+    }
+    return json;
 }
