@@ -18,6 +18,10 @@ export class Search extends React.Component {
         }
         this.props.send(message.replace('\n', '\n\n'));
     }
+    componentDidUpdate() {
+        var input = document.getElementById('input');
+        input.focus();
+    }
     render() {
         return (
             <div className="search-container">
@@ -37,7 +41,7 @@ export class Search extends React.Component {
                     }}
                 />
                 <div className="button-container">
-                    <button onClick={this.send} />
+                    <button disabled={this.props.loading} onClick={this.send} />
                 </div>
             </div>
             </div>
