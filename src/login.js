@@ -9,11 +9,16 @@ export class LoginControl extends React.Component {
   constructor(props) {
     console.log('created login control')
     super(props);
-  
+    this.state = {
+      loading: false,
+    }
     const params = new URLSearchParams(window.location.search);
-    const code = params.get('code')
+    const code = params.get('code');
     /// recall of oauth!
     if (code != undefined) {
+      this.state = {
+        loading: true,
+      };
       this.oauth_login(this.props.code_callback);
     }
   }
@@ -26,11 +31,19 @@ export class LoginControl extends React.Component {
     request("POST", process.env.REACT_APP_API_ROOT + '/user/login', { 'code': code }).then((json) => {
       console.log(json)
       if (json.status_code != 200) {
-        throw new Error(JSON.stringify(json));
+        alert(`error: ${json.data} `);
+        this.setState({
+          loading: false,
+        });
+        this.remove_url_params();
+        return;
       }
       this.remove_url_params();
       set_token(json.token)
       alert('Successfully logged in!');
+      this.setState({
+        loading: false,
+      });
     })
 
   }
@@ -43,7 +56,9 @@ export class LoginControl extends React.Component {
       <div className="popup">
           <Popup Popup
             trigger={
-              <button>
+              <button
+              disabled={this.state.loading}
+              >
                 Login
               </button>
             }
