@@ -27,14 +27,22 @@ export class LoginControl extends React.Component {
   oauth_login = (set_token) => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
-    const body = new URLSearchParams();
-    Object.entries({
-      code
-    }).forEach((param) => body.append(...param));
-    fetch(process.env.REACT_APP_API_ROOT + '/login', {
-      methos: 'POST',
-      body,
-    }).then(get_json)
+    
+    fetch(process.env.REACT_APP_API_ROOT + '/user/login', {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: {
+      code: code,
+    }, // body data type must match "Content-Type" header
+  }).then(get_json)
       .then((json) => {
         if (json.code != 200) {
           throw new Error(JSON.stringify(json));

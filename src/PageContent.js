@@ -1,7 +1,7 @@
 import React from "react";
 import { LoginControl } from './login'
 import { Search } from "./Search";
-// import { get_json } from "./utils/functions";
+import { get_json } from "./utils/functions";
 import { Chat } from "./Chat"
 import "./PageContent.css"
 
@@ -17,36 +17,32 @@ export class PageContent extends React.Component {
   }
   componentDidMount() {
     if (localStorage['TOKEN']) {
-      this.fetch_record(localStorage['TOKEN']);
+      this.verify_token();
     }
   }
   fetch_record = (token)=>{
-    var data = [
-      {
-        role: 'user',
-        content: 'Q1',
-      },
-      {
-        role: 'assistant',
-        content: 'A1',
-      },
-      {
-        role: 'user',
-        content: 'Q2'
-      },
-      {
-        role: 'assistant',
-        content: 'A2'
+    fetch(process.env.REACT_APP_API_ROOT + "/user/verify_token").then(get_json).then((json) => {
+      if (json.code != 200) {
+        alert('Invalid TOKEN, please login!');
+        localStorage.removeItem('TOKEN');
+        return;
       }
-    ]
-    this.update_list(data)
-    this.setState({
-      verified_token: true
-    })
+      this.setState({
+        verified_token: true
+      });
+      this.update_list();
+    });
   }
-  update_list(data) {
-    this.setState({
-      data: data
+
+  update_list() {
+    fetch(process.env.REACT_APP_API_ROOT + "/user/fetch_data").then(get_json).then((json) => {
+      if (json.code != 200) {
+        return;
+      } else {
+        this.setState({
+          data: json.data,
+        });
+      }
     })
   }
   send_message = (message)=>{
@@ -56,18 +52,26 @@ export class PageContent extends React.Component {
       data: this.state.data,
     })
   }
+  set_token = (token) => {
+    console.log(`${token} is set as token!`);
+    localStorage['TOKEN'] = token || '';
+    this.setState({
+      token: token,
+    });
+    this.verify_token();
+  }
+  verify_token = () => {
+    this.setState({
+      verified_token: true,
+    })
+    this.fetch_record(this.state.token);
+  }
   render() {
     return (
       <>
         {!this.state.verified_token && (
           <LoginControl
-            token_callback={(x) => {
-              console.log(`${x} is set as token!`)
-              localStorage['TOKEN'] = x || '';
-              this.setState({
-                token: x,
-              })
-            }}
+            token_callback={this.set_token}
           />
         )}
         {this.state.verified_token && (
