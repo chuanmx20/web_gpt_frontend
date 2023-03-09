@@ -15,3 +15,30 @@ export function get_json(res) {
             })
     );
 }
+
+export function request(method, url, body) {
+    method = method.toUpperCase();
+
+    if (method === 'GET') {
+        body = undefined;
+    } else {
+        body = body && JSON.stringify(body);
+        
+    }
+    return fetch(url, {
+        method,
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': ('Bearer' + localStorage.getItem('TOKEN')),
+        },
+        body: body
+    }).then(get_json).then((json) => {
+        if (json.code === 500) {
+
+            localStorage.removeItem("TOKEN");
+            return Promise.reject('Unauthorized');
+        }
+        return json;
+    })
+}

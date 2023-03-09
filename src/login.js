@@ -1,7 +1,7 @@
 import React from "react";
 import Popup from 'reactjs-popup';
 import './login.css'
-import { get_json } from "./utils/functions";
+import { request } from "./utils/functions";
 
 const authorize_uri = process.env.REACT_APP_AUTHORIZE_URI;
 const client_id = process.env.REACT_APP_CLIENT_ID;
@@ -9,7 +9,6 @@ export class LoginControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-          isLoggedIn: false,
           code: undefined
     };
   }
@@ -27,34 +26,16 @@ export class LoginControl extends React.Component {
   oauth_login = (set_token) => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
-    
-    fetch(process.env.REACT_APP_API_ROOT + '/user/login', {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: {
-      code: code,
-    }, // body data type must match "Content-Type" header
-  }).then(get_json)
-      .then((json) => {
-        if (json.code != 200) {
-          throw new Error(JSON.stringify(json));
-        }
-        set_token(json.token)
-        alert('Successfully logged in!');
-      });
-    this.remove_url_params();
-    this.setState({
-      isLoggedIn: true,
-      code: code,
+    request("POST", process.env.REACT_APP_API_ROOT + '/user/login', { 'code': code }).then((json) => {
+      console.log(json)
+      if (json.code != 200) {
+        throw new Error(JSON.stringify(json));
+      }
+      this.remove_url_params();
+      set_token(json.token)
+      alert('Successfully logged in!');
     })
+
   }
   remove_url_params() {
     var newURL = location.href.split("?")[0];
@@ -63,7 +44,6 @@ export class LoginControl extends React.Component {
   render() {
     return (
       <div className="popup">
-        {!(this.state.isLoggedIn) && (
           <Popup Popup
             trigger={
               <button>
@@ -92,7 +72,6 @@ export class LoginControl extends React.Component {
               </div>
             )}
           </Popup >
-        )}
       </div>
       
       

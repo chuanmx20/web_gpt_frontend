@@ -1,7 +1,7 @@
 import React from "react";
 import { LoginControl } from './login'
 import { Search } from "./Search";
-import { get_json } from "./utils/functions";
+import { request } from "./utils/functions";
 import { Chat } from "./Chat"
 import "./PageContent.css"
 
@@ -10,38 +10,24 @@ export class PageContent extends React.Component {
     super(props);
 
     this.state = {
-      token: localStorage['TOKEN'] || null,
       data: [],
       verified_token: false,
     };
   }
   componentDidMount() {
     if (localStorage['TOKEN']) {
-      this.verify_token();
+      this.verify_token()
     }
-  }
-  fetch_record = (token)=>{
-    fetch(process.env.REACT_APP_API_ROOT + "/user/verify_token").then(get_json).then((json) => {
-      if (json.code != 200) {
-        alert('Invalid TOKEN, please login!');
-        localStorage.removeItem('TOKEN');
-        return;
-      }
-      this.setState({
-        verified_token: true
-      });
-      this.update_list();
-    });
   }
 
   update_list() {
-    fetch(process.env.REACT_APP_API_ROOT + "/user/fetch_data").then(get_json).then((json) => {
+      request('GET', process.env.REACT_APP_API_ROOT + "/user/fetch_data").then((json) => {
       if (json.code != 200) {
         return;
       } else {
         this.setState({
           data: json.data,
-        });
+        })
       }
     })
   }
@@ -55,16 +41,22 @@ export class PageContent extends React.Component {
   set_token = (token) => {
     console.log(`${token} is set as token!`);
     localStorage['TOKEN'] = token || '';
-    this.setState({
-      token: token,
-    });
     this.verify_token();
   }
   verify_token = () => {
-    this.setState({
-      verified_token: true,
-    })
-    this.fetch_record(this.state.token);
+    request('POST', process.env.REACT_APP_API_ROOT + "/user/verify_token")
+      .then((json) => {
+      if (json.code != 200) {
+        alert('Invalid TOKEN, please login!');
+        localStorage.removeItem('TOKEN');
+        return;
+      }
+      this.setState({
+        verified_token: true,
+      });
+      document.cookie = "TOKEN=" + this.state.token;
+      this.update_list();
+    });
   }
   render() {
     return (
