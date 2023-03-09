@@ -69,6 +69,7 @@
 .search button:active {
     background-color: var(--button-color-active);
     box-shadow: 0px var(--shadow-width-active) var(--shadow-color);
+    transform: translateY(calc(var(--shadow-width-idle) - var(--shadow-width-active)));
 }
 .search > .button-container {
     aspect-ratio: 1/1;

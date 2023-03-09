@@ -54,7 +54,7 @@ export class LoginControl extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="popup">
         {!(this.state.isLoggedIn) && (
           <Popup Popup
             trigger={

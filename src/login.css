@@ -1,21 +1,64 @@
+:root {
+	--login-button-idle: #8ea7a1;
+	--login-button-hover: #a9e2cb;
+}
+.popup {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		z-index: 999;
+		transform: translateX(-50%);
+		/* display: flex; */
+}
+
+.popup button {
+	cursor: pointer;
+	width: 120px;
+	height: 50px;
+	border-radius: 10px;
+	background-color: var(--login-button-idle);
+	color: rgb(209, 215, 223);
+	font-size: 25px;
+	font-weight: 600;
+	box-shadow: 1px 8px #c5c6c6;
+	
+}
+.popup button:hover {
+	background-color: var(--login-button-hover);
+	color:rgb(90, 117, 117)
+}
+.popup button:active {
+	box-shadow: 1px 3px #c5c6c6;
+	transform: translateY(5px);
+}
+
 .modal {
 	font-size: 12px;
-	background-color: rgb(56, 102, 102);
+	background-color: rgb(70, 89, 89);
 	/* padding-right: 5px; */
 	/* height: 160px; */
+	border-radius: 5px;
+	/* width: 200px; */
+	/* height: 140px; */
+	display: row;
 }
 
 .modal>.header {
 	width: 100%-5px;
 	border-bottom: 1px solid gray;
-	font-size: 18px;
+	font-size: 25px;
+	font-weight: 550;
+	color: rgb(222, 224, 228);
 	text-align: center;
 	padding: 5px;
 }
 
 .modal>.content {
-	width: 100%;
-	padding: 10px 5px;
+	/* width: 100%; */
+	padding: 30px;
+	display: flex;
+	align-content: space-around;
+	justify-content: space-around;
 }
 
 .modal>.actions {
@@ -38,12 +81,27 @@
 	border-radius: 18px;
 	border: 1px solid #cfcece;
 }
+
 .github-icon {
 	height: 15px;
 }
 .github-button {
+	font-size: 20px;
+	font-weight: 550;
+	cursor: pointer;
 	align-content: center;
 	vertical-align: center;
+	margin: auto;
+	border-radius: 5px;
+	box-shadow: 1px 5px #e5ecf3;
+}
+.github-button:hover {
+	background-color: rgb(216, 231, 228);
+	color: rgb(45, 34, 34);
+}
+.github-button:active {
+	box-shadow: 1px 1px #e5ecf3;
+	transform: translateY(4px);
 }
 
 .github-button-text {

@@ -25,6 +25,6 @@
   background-color: rgb(25, 126, 116);
   position: fixed;
   top: 0;
-  z-index: 999;
+  z-index: 1;
   font-weight: 800;
 }
