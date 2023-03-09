@@ -40,15 +40,15 @@ export class PageContent extends React.Component {
   }
 
   async get_list() {
-      request('GET', process.env.REACT_APP_API_ROOT + "/user/fetch_data").then((json) => {
-      if (json.status_code != 200) {
-        console.log(json.data);
-        throw new Error(json.data);
-        return [];
-      } else {
-        return json.data;
-      }
-    })
+    console.log('called')
+    var json = await request('GET', process.env.REACT_APP_API_ROOT + "/user/fetch_data")
+    if (json.status_code != 200) {
+      alert(`error: ${json.data}`)
+      return [];
+    } else {
+      console.log(json.data)
+      return json.data;
+    }
   }
   send_message = (message)=>{
     console.log(message);
@@ -57,7 +57,9 @@ export class PageContent extends React.Component {
       data: this.state.data,
       loading: true,
     });
-    request('POST', process.env.REACT_APP_API_ROOT + '/user/ask')
+    request('POST', process.env.REACT_APP_API_ROOT + '/user/ask', {
+      'content': message,
+    })
       .then(
         (json) => {
           if (json.status_code == 200) {
@@ -92,9 +94,7 @@ export class PageContent extends React.Component {
       )
   }
   async verify_token() {
-    console.log('called')
     var json = await request('POST', process.env.REACT_APP_API_ROOT + "/user/verify_token")
-    console.log(json)
     if (json.status_code == 401 || json.status_code == 403) {
       alert('Invalid TOKEN, please login!');
       localStorage.removeItem('TOKEN');
