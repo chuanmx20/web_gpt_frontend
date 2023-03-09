@@ -30,7 +30,7 @@ export async function request(method, url, body) {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': ('Bearer' + localStorage.getItem('TOKEN')),
+            'Authorization': localStorage.getItem('TOKEN'),
         },
         body: body
     });
@@ -38,7 +38,7 @@ export async function request(method, url, body) {
     if (json.status_code === 403 || json.status_code == 401) {
 
         localStorage.removeItem("TOKEN");
-        return Promise.reject('Unauthorized');
+        console.log(`error: ${json.data}`);
     }
     return json;
 }

@@ -7,17 +7,14 @@ const authorize_uri = process.env.REACT_APP_AUTHORIZE_URI;
 const client_id = process.env.REACT_APP_CLIENT_ID;
 export class LoginControl extends React.Component {
   constructor(props) {
+    console.log('created login control')
     super(props);
-    this.state = {
-          code: undefined
-    };
-  }
-  componentDidMount() {
+  
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code')
     /// recall of oauth!
     if (code != undefined) {
-      this.oauth_login(this.props.token_callback);
+      this.oauth_login(this.props.code_callback);
     }
   }
   click_login() {
@@ -73,8 +70,6 @@ export class LoginControl extends React.Component {
             )}
           </Popup >
       </div>
-      
-      
     )
     
   }

@@ -8,9 +8,6 @@ export class Chat extends React.Component {
     constructor(props) {
         super(props);
     }
-    // messages = this.props.data.map((message, id) => {
-    //     return <Message message={message}/>
-    // })
     componentDidUpdate() {
         const box = document.getElementById('box');
         if (box != undefined)

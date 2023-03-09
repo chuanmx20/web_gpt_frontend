@@ -12,22 +12,41 @@ export class PageContent extends React.Component {
     this.state = {
       data: [],
       verified_token: false,
-    };
+    }
   }
-  componentDidMount() {
-    if (localStorage['TOKEN']) {
+  UNSAFE_componentWillMount() {
+    if (localStorage.TOKEN) {
       this.verify_token()
+        .then(
+          (authed) => {
+            console.log(`authed = ${authed}`)
+            if (authed) {
+              this.setState({
+                verified_token: true,
+              });
+              this.get_list()
+                .then(
+                  (data) => {
+                    this.setState({
+                      data: Array.isArray(data) ? data : [],
+                    })
+                  }
+                )
+            }
+            
+          }
+        )
     }
   }
 
-  update_list() {
+  async get_list() {
       request('GET', process.env.REACT_APP_API_ROOT + "/user/fetch_data").then((json) => {
       if (json.status_code != 200) {
-        return;
+        console.log(json.data);
+        throw new Error(json.data);
+        return [];
       } else {
-        this.setState({
-          data: json.data,
-        })
+        return json.data;
       }
     })
   }
@@ -41,28 +60,36 @@ export class PageContent extends React.Component {
   set_token = (token) => {
     console.log(`${token} is set as token!`);
     localStorage['TOKEN'] = token || '';
-    this.verify_token();
-  }
-  verify_token = () => {
-    request('POST', process.env.REACT_APP_API_ROOT + "/user/verify_token")
-      .then((json) => {
-      if (json.status_code != 200) {
-        alert('Invalid TOKEN, please login!');
-        localStorage.removeItem('TOKEN');
-        return;
-      }
-      this.setState({
-        verified_token: true,
-      });
-      this.update_list();
+    this.setState({
+      verified_token: true,
     });
+    this.get_list()
+      .then(
+        (data) =>
+        {
+          this.setState({
+            data: Array.isArray(data) ? data : [],
+          })
+        }
+      )
+  }
+  async verify_token() {
+    console.log('called')
+    var json = await request('POST', process.env.REACT_APP_API_ROOT + "/user/verify_token")
+    console.log(json)
+    if (json.status_code == 401 || json.status_code == 403) {
+      alert('Invalid TOKEN, please login!');
+      localStorage.removeItem('TOKEN');
+      return false;
+    }
+      return true;
   }
   render() {
     return (
       <>
         {!this.state.verified_token && (
           <LoginControl
-            token_callback={this.set_token}
+            code_callback={this.set_token}
           />
         )}
         {this.state.verified_token && (
