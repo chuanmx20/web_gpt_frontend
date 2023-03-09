@@ -23,6 +23,7 @@ export class Search extends React.Component {
             <div className="search-container">
             <div className="search">
                 <TextField
+                    disabled={this.props.loading}
                     multiline
                     maxRows={5} 
                     className="input"

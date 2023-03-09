@@ -12,6 +12,7 @@ export class PageContent extends React.Component {
     this.state = {
       data: [],
       verified_token: false,
+      loading: false,
     }
   }
   UNSAFE_componentWillMount() {
@@ -19,7 +20,6 @@ export class PageContent extends React.Component {
       this.verify_token()
         .then(
           (authed) => {
-            console.log(`authed = ${authed}`)
             if (authed) {
               this.setState({
                 verified_token: true,
@@ -55,7 +55,25 @@ export class PageContent extends React.Component {
     this.state.data.push({ role: 'user', content: message });
     this.setState({
       data: this.state.data,
-    })
+      loading: true,
+    });
+    request('POST', process.env.REACT_APP_API_ROOT + '/user/ask')
+      .then(
+        (json) => {
+          if (json.status_code == 200) {
+            this.state.data.push(json.data);
+            this.setState({
+              data: this.state.data,
+              loading: false,
+            })
+          } else {
+            alert(json.data);
+            this.setState({
+              loading: false,
+            })
+          }
+        }
+      );
   }
   set_token = (token) => {
     console.log(`${token} is set as token!`);
@@ -99,6 +117,7 @@ export class PageContent extends React.Component {
             />
             <Search
               send={this.send_message}
+              loading={this.state.loading}
             />
           </div>
         )}
