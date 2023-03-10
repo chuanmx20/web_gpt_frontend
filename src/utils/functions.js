@@ -30,7 +30,7 @@ export async function request(method, url, body) {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': localStorage.getItem('TOKEN'),
+            'Authorization': localStorage.getItem('TOKEN') || 'undefined',
         },
         body: body
     });

@@ -28,6 +28,8 @@ export class LoginControl extends React.Component {
   oauth_login = (set_token) => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
+    this.remove_url_params();
+
     request("POST", process.env.REACT_APP_API_ROOT + '/user/login', { 'code': code }).then((json) => {
       console.log(json)
       if (json.status_code != 200) {
@@ -35,10 +37,8 @@ export class LoginControl extends React.Component {
         this.setState({
           loading: false,
         });
-        this.remove_url_params();
         return;
       }
-      this.remove_url_params();
       set_token(json.token)
       alert('Successfully logged in!');
       this.setState({

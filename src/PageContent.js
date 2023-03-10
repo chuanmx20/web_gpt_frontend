@@ -32,6 +32,10 @@ export class PageContent extends React.Component {
                     })
                   }
                 )
+            } else {
+              this.setState({
+                verified_token: false,
+              })
             }
             
           }
