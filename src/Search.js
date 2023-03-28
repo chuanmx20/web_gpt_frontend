@@ -18,32 +18,39 @@ export class Search extends React.Component {
         }
         this.props.send(message.replace('\n', '\n\n'));
     }
+
+    clear = () => {
+        this.props.clear();
+    }
     componentDidUpdate() {
         var input = document.getElementById('input');
         input.focus();
     }
     render() {
         return (
-            <div className="search-container">
-            <div className="search">
-                <TextField
-                    disabled={this.props.loading}
-                    multiline
-                    maxRows={5} 
-                    className="input"
-                    placeholder="Say something!"
-                    id="input"
-                    onKeyDown={(event) => {
-                        if (event.key == "Enter" && !event.shiftKey) {
-                            this.send();
-                            event.preventDefault();
-                        }
-                    }}
-                />
-                <div className="button-container">
-                    <button disabled={this.props.loading} onClick={this.send} />
+            <div className="search-container">  
+                <div className="search">
+                    <div className="button-clear">
+                        <button className="clear" disabled={this.props.loading} onClick={this.clear} />
+                    </div>  
+                    <TextField
+                        disabled={this.props.loading}
+                        multiline
+                        maxRows={5} 
+                        className="input"
+                        placeholder="Say something!"
+                        id="input"
+                        onKeyDown={(event) => {
+                            if (event.key == "Enter" && !event.shiftKey) {
+                                this.send();
+                                event.preventDefault();
+                            }
+                        }}
+                    />
+                    <div className="button-send">
+                        <button className="send" disabled={this.props.loading} onClick={this.send} />
+                    </div>
                 </div>
-            </div>
             </div>
             
         )

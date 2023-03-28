@@ -54,6 +54,26 @@ export class PageContent extends React.Component {
       return json.data;
     }
   }
+  clear = () => {
+    console.log('Try to clear messages');
+    this.setState({
+      loading: true,
+    });
+    request('POST', process.env.REACT_APP_API_ROOT + '/user/clear').then((json) => {
+      if (json.status_code == 200) {
+        this.setState({
+          data: [],
+          loading: false,
+        });
+        console.log("Cleared");
+      } else {
+        this.setState({
+          loading: false,
+        });
+        console.log(`Failed to Clear: ${json.data}`);
+      }
+    })
+  }
   send_message = (message)=>{
     console.log(message);
     this.state.data.push({ role: 'user', content: message });
@@ -120,6 +140,7 @@ export class PageContent extends React.Component {
               data={this.state.data}
             />
             <Search
+              clear={this.clear}
               send={this.send_message}
               loading={this.state.loading}
             />

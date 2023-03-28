@@ -51,8 +51,21 @@
     overflow: scroll;
     display: flex-end;
 }
-.search button {
+.search button.send {
     background-image: url("./imgs/send.png");
+    background-size: contain;
+    background-color: var(--button-color-idle);
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    width: 60% !important;
+    margin-bottom: 5px;
+
+    aspect-ratio: 1/1;
+    box-shadow: 1px var(--shadow-width-idle) var(--shadow-color);
+}
+.search button.clear {
+    background-image: url("./imgs/clear.png");
     background-size: contain;
     background-color: var(--button-color-idle);
     border-radius: 8px;
@@ -72,7 +85,7 @@
     box-shadow: 0px var(--shadow-width-active) var(--shadow-color);
     transform: translateY(calc(var(--shadow-width-idle) - var(--shadow-width-active)));
 }
-.search > .button-container {
+.search > .button-send {
     aspect-ratio: 1/1;
     width: calc(100% - var(--input-width)) !important;
     max-width: 80px !important;
@@ -83,4 +96,30 @@
     aspect-ratio: 1/1;
     margin-left: 10px;
     display: flex;
+}
+.search > .button-clear {
+    aspect-ratio: 1/1;
+    width: calc(100% - var(--input-width)) !important;
+    max-width: 80px !important;
+    height: 100%;
+    justify-content: flex-end;
+    flex-direction: column;
+
+    aspect-ratio: 1/1;
+    margin-left: 10px;
+    display: flex;
+}
+
+.search button>.clear {
+    background-image: url("./imgs/clear.png");
+    background-size: contain;
+    background-color: var(--button-color-idle);
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    width: 60% !important;
+    margin-bottom: 5px;
+
+    aspect-ratio: 1/1;
+    box-shadow: 1px var(--shadow-width-idle) var(--shadow-color);
 }
